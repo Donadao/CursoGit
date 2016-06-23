@@ -63,13 +63,7 @@
       JOIN SAM_PRESTADOR_PRESTADORDAENTID M ON(M.ENTIDADE = X.HANDLE) 
       JOIN SAM_PRESTADOR P ON(P.HANDLE = M.PRESTADOR) 
       JOIN SAM_PRESTADOR_ENDERECO E ON(E.PRESTADOR = X.HANDLE) 
-     WHERE TMP.USUARIO = @p_Usuario 
-       and TMP.CHAVE = @p_Chave 
-       and X.FISICAJURIDICA = 2 
-       and P.EXECUTOR = 'S' 
-       and P.DATABLOQUEIO is NULL 
-       and 'A' not IN(
-    SELECT 'A' 
+
       FROM SAM_PRESTADOR_REGRA A 
      WHERE A.PRESTADOR = P.HANDLE 
        and A.EVENTO = @p_Evento 
@@ -95,7 +89,7 @@
        and A.EVENTO = @p_Evento 
        and A.REGRAEXCECAO = 'R' 
        and A.DATAINICIAL <= @p_Data 
-       and(A.DATAFINAL is NULL 
+ 
         or A.DATAFINAL >= @p_Data) 
        and A.PERMITEVISUALIZARCENTRAL = 'S'))) T 
      WHERE(@p_Regiao = 0 
